@@ -14,11 +14,9 @@ public class EventHandler : MonoBehaviour {
 	
 	void Start () {
 		this.globalVariables = this.GlobalVariablesObj.GetComponent<GlobalVariables> ();
-		if (this.spawnPoints == null) {
-			this.spawnPoints = GameObject.FindGameObjectsWithTag ("spawner");
-		}
+		this.spawnPoints = GameObject.FindGameObjectsWithTag ("spawner");
 		this.globalVariables.wave++;
-		//StartCoroutine(this.spawnWaves ());
+		StartCoroutine(this.spawnWaves ());
 		this.spawnWaves ();
 	}
 
@@ -26,28 +24,21 @@ public class EventHandler : MonoBehaviour {
 		
 	}
 
-	void spawnWaves(){
+	IEnumerator  spawnWaves(){
 
 		for (int i = 0; i < this.globalVariables.wave * this.multiplyNum; i++) {
-			int index = Random.Range(0,this.spawnPoints.Length -1);
+			int index = Random.Range(0,this.spawnPoints.Length );
 			if(Random.Range(-10,10) > 0)
 			{ // Melee
-				foreach (GameObject spawn in this.spawnPoints) 
-				{
-					Instantiate(this.enemeyMelee, spawn.transform.position, spawn.transform.rotation);
-					this.globalVariables.zombieCount++;
-					//yield return new WaitForSeconds (Time.deltaTime* this.spawnDelayTime);
-				}
+				Instantiate(this.enemeyMelee, this.spawnPoints[index].transform.position, Quaternion.identity);
 			} 
 			else 
 			{ // Ranged
-				foreach (GameObject spawn in this.spawnPoints) 
-				{
-					Instantiate(this.enemeyMelee, spawn.transform.position, spawn.transform.rotation);
-					this.globalVariables.zombieCount++;
-					//yield return new WaitForSeconds (Time.deltaTime * this.spawnDelayTime);
-				}
+				Instantiate(this.enemeyMelee, this.spawnPoints[index].transform.position, Quaternion.identity);
+				Debug.Log("change Eventhandler.cs spawnwaves() for inclusion of ranged");
 			}
+			this.globalVariables.zombieCount++;
+			yield return new WaitForSeconds (Time.smoothDeltaTime * this.spawnDelayTime);
 		}
 	}
 }
