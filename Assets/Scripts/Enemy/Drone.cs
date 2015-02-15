@@ -5,38 +5,42 @@ public class Drone : MonoBehaviour {
 	public int health;
 	public int moveSpeed;
 	public int attack;
-
-
-	private Transform target;
+	public int searchRange;
+	public float attackRange;
+	
+	private GameObject target;
 	private Transform player;
-	private float range;
 	/*
 	 * This will all need to be changed to accomodate the static variable idea
 	 */
 	// Use this for initialization
 	void Start () {
-		target = null;
+		searchRange = 20;
+		target = new GameObject();
+		generateNewTarget ();
 		this.player = GameObject.FindGameObjectWithTag ("player").transform;
 		this.GetComponent<NavMeshAgent> ().enabled = false; // Don't find path till necessary
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (EventHandler.instance.getDroneCount () <= 10)
+		if (EventHandler.Instance.getDroneCount () <= 10)
 			moveTowardsPlayer ();
 		else { 
-			if(EventHandler.getFound() == true){
+			if(EventHandler.instance.getFound() == true){
 				moveTowardsPlayer();
 				return;
 			}
 			// if the player is in the radious, then he or she is found
-			if(player.position.x+10 > transform.position.x && player.position.x-10 < transform.position.x
-			   && player.position.y+10 > transform.position.y && player.position.y -10 < transform.position.y
-			   && player.position.z+10 > transform.position.z && player.position.z -10 < transform.position.z){
+			if(   player.position.x+searchRange > transform.position.x && player.position.x - searchRange < transform.position.x
+			   && player.position.y+searchRange > transform.position.y && player.position.y - searchRange < transform.position.y
+			   && player.position.z+searchRange > transform.position.z && player.position.z - searchRange < transform.position.z){
 				//broadcast
+				EventHandler.instance.setFound(true);
 				moveTowardsPlayer();
 				return;
-			}
+			} 
+			EventHandler.instance.setFound(false);
 			moveRandomDirection();
 		}
 	}
@@ -46,10 +50,10 @@ public class Drone : MonoBehaviour {
 	}
 
 	public void moveRandomDirection(){
-		if (transform.position == target.position || target == null) {
+		if (transform.position == target.transform.position || target == null) {
 			generateNewTarget();		
 		}
-		moveTowards (target);
+		moveTowards (target.transform);
 	}
 
 	public void moveTowards(Transform movePlace){
@@ -62,6 +66,11 @@ public class Drone : MonoBehaviour {
 	}
 
 	public void generateNewTarget(){
-
+		int walkRadius = 50;
+		Vector3 randomDirection = Random.insideUnitSphere * walkRadius;// will need to be changed
+		NavMeshHit hit;
+		NavMesh.SamplePosition (randomDirection, out hit, walkRadius, 1);
+		Vector3 finalPosition = hit.position;
+		target.transform.position = finalPosition;
 	}
 }

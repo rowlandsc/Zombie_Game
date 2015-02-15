@@ -82,7 +82,7 @@ public class EventHandler : MonoBehaviour{
 		}
 	}
 
-	public void getFound(){
+	public bool getFound(){
 		return found;
 	}
 
