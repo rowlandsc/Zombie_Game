@@ -1,12 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\EventHandler.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemy\Drone.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game\EventHandler.cs" Line="68" Column="4" />
+      <File FileName="Assets\Scripts\Game\EventHandler.cs" Line="79" Column="32" />
       <File FileName="Assets\Scripts\Enemy\MoveSpawner.cs" Line="14" Column="23" />
-      <File FileName="Assets\RunGame.cs" Line="8" Column="1" />
-      <File FileName="Assets\Scripts\Enemy\EnemyNavigation.cs" Line="7" Column="35" />
       <File FileName="Assets\Scripts\FPCScripts\MouseLook.cs" Line="37" Column="46" />
+      <File FileName="Assets\Scripts\Enemy\Drone.cs" Line="38" Column="3" />
+      <File FileName="Assets\Scripts\Game\RunGame.cs" Line="9" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

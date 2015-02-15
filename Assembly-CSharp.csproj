@@ -48,11 +48,12 @@
   <ItemGroup>
      <Compile Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Scripts\CustomTerrainScriptAtsV3Snow.cs" />
      <Compile Include="Assets\Art\Terrain Assets\Water (Basic)\Sources\Scripts\WaterSimple.cs" />
-     <Compile Include="Assets\RunGame.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Drone.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyNavigation.cs" />
      <Compile Include="Assets\Scripts\Enemy\MoveSpawner.cs" />
      <Compile Include="Assets\Scripts\FPCScripts\MouseLook.cs" />
      <Compile Include="Assets\Scripts\Game\EventHandler.cs" />
+     <Compile Include="Assets\Scripts\Game\RunGame.cs" />
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Terrain\Ressources\ShadersBuiltin\Camera-DepthTexture.shader" />
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Trees\BillboardTreeSnow.shader" />
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Terrain\Includes\atsWavingGrass vertexAlpha.cginc" />

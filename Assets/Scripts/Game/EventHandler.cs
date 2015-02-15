@@ -9,6 +9,7 @@ public class EventHandler : MonoBehaviour{
 	public GameObject enemyMelee;
 	public GameObject enemyRanged;
 
+	private bool found;
 	private static GameObject staticMelee;
 	private static GameObject staticRanged;
 	private static int wave;
@@ -29,6 +30,7 @@ public class EventHandler : MonoBehaviour{
 	}
 
 	public void init(){
+		found = false;
 		multiplyNum = 3;
 		staticMelee = enemyMelee;
 		staticRanged = enemyRanged;
@@ -69,7 +71,24 @@ public class EventHandler : MonoBehaviour{
 		wave++;
 	}
 
+	public int getDroneCount(){
+		return droneCount;
+	}
 
+	public void droneKilled(){
+		droneCount--;
+		if (droneCount >= 0) {
+			StartCoroutine(waitSpawn());
+		}
+	}
+
+	public void getFound(){
+		return found;
+	}
+
+	public void setFound(bool var){
+		found = var;
+	}
 }
 //Time.smoothDeltaTime * 
 //startCoRoutine
