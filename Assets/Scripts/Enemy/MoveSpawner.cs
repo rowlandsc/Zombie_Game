@@ -4,8 +4,7 @@ using System.Collections;
 public class MoveSpawner : MonoBehaviour {
 	public GameObject[] spawnPoints;
 	public float fracJourney;
-	public float timeBetweenSpawn;
-
+	public int wave;
 
 	private int index;
 

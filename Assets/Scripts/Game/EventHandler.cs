@@ -2,43 +2,62 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EventHandler : MonoBehaviour {
-	public GameObject GlobalVariablesObj;
-	public GameObject enemeyMelee;
-	public GameObject enemyRanged;
-	public int multiplyNum;
-	public float spawnDelayTime;
+public class EventHandler : MonoBehaviour{
+	public static int multiplyNum;
+	public static float spawnDelayTime;
 
-	private GameObject[] spawnPoints;
-	private GlobalVariables globalVariables;
-	
-	void Start () {
-		this.globalVariables = this.GlobalVariablesObj.GetComponent<GlobalVariables> ();
-		this.spawnPoints = GameObject.FindGameObjectsWithTag ("spawner");
-		this.globalVariables.wave++;
-		StartCoroutine(this.spawnWaves ());
-		this.spawnWaves ();
+	private static GameObject enemyMelee;
+	private static GameObject enemyRanged;
+	private static int wave;
+	private static int timeBetweenWaves;
+	private static int droneCount;
+	private static GameObject[] spawnPoints;
+
+	public static void init(){
+		enemyMelee = Resources.Load("prefab/EnemyObject",typeof(GameObject)) as GameObject;
+		enemyRanged = Resources.Load("prefab/EnemyObject",typeof(GameObject)) as GameObject;
+		wave = 0;
+		timeBetweenWaves = 30;
+		droneCount = 0;
+		spawnPoints = GameObject.FindGameObjectsWithTag ("spawner");
 	}
 
-	void Update () {
-		
+	public static void getEventHandler(){
+		EventHandler.droneCount--;
+		if (EventHandler.droneCount == 0) { // start spawn wave sequence
+			EventHandler.waitSpawn();
+		}
 	}
 
-	IEnumerator  spawnWaves(){
+	private static IEnumerator waitSpawn(){
+		yield return new WaitForSeconds (timeBetweenWaves);
+		spawnWaves ();
+		wave++;
+	}
 
-		for (int i = 0; i < this.globalVariables.wave * this.multiplyNum; i++) {
-			int index = Random.Range(0,this.spawnPoints.Length );
+	public static GameObject getMelee(){
+		return enemyMelee;
+	}
+	 
+	public static IEnumerator  spawnWaves(){
+		for (int i = 0; i < wave * multiplyNum; i++) {
+			int index = Random.Range(0,spawnPoints.Length );
 			if(Random.Range(-10,10) > 0)
 			{ // Melee
-				Instantiate(this.enemeyMelee, this.spawnPoints[index].transform.position, Quaternion.identity);
+				Instantiate(getMelee(), spawnPoints[index].transform.position, Quaternion.identity);
 			} 
 			else 
 			{ // Ranged
-				Instantiate(this.enemeyMelee, this.spawnPoints[index].transform.position, Quaternion.identity);
+				Instantiate(getMelee(),spawnPoints[index].transform.position, Quaternion.identity);
 				Debug.Log("change Eventhandler.cs spawnwaves() for inclusion of ranged");
 			}
-			this.globalVariables.zombieCount++;
-			yield return new WaitForSeconds (Time.smoothDeltaTime * this.spawnDelayTime);
+			EventHandler.droneCount++;
+			yield return new WaitForSeconds (spawnDelayTime);
 		}
 	}
+
+
 }
+//Time.smoothDeltaTime * 
+//startCoRoutine
+//instantiate
