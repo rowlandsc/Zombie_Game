@@ -6,17 +6,80 @@ public class EventHandler : MonoBehaviour{
 	public static int multiplyNum;
 	public static float spawnDelayTime;
 
-	private static GameObject enemyMelee;
-	private static GameObject enemyRanged;
+	public GameObject enemyMelee;
+	public GameObject enemyRanged;
+
+	private static GameObject staticMelee;
+	private static GameObject staticRanged;
 	private static int wave;
 	private static int timeBetweenWaves;
 	private static int droneCount;
 	private static GameObject[] spawnPoints;
 
+	public static EventHandler instance;
+
+	public static EventHandler Instance{
+		get{
+			if(instance == null){
+				instance = GameObject.FindObjectOfType<EventHandler>();
+				DontDestroyOnLoad(instance.gameObject);
+			}
+			return instance;
+		}
+	}
+
+	public void init(){
+		multiplyNum = 3;
+		staticMelee = enemyMelee;
+		staticRanged = enemyRanged;
+		wave = 5;
+		timeBetweenWaves = 30;
+		droneCount = 0;
+		spawnPoints = GameObject.FindGameObjectsWithTag ("spawner");
+	}
+	
+	public void getEventHandler(){
+		droneCount--;
+		if (droneCount == 0) { // start spawn wave sequence
+			waitSpawn();
+		}
+	}
+	
+	private IEnumerator waitSpawn(){
+		yield return new WaitForSeconds (timeBetweenWaves);
+		spawnWaves ();
+		
+	}
+	
+	public IEnumerator  spawnWaves(){
+		for (int i = 0; i < wave * multiplyNum; i++) {
+			int index = Random.Range(0,spawnPoints.Length );
+			if(Random.Range(-10,10) > 0)
+			{ // Melee
+				Instantiate(staticMelee, spawnPoints[index].transform.position, Quaternion.identity);
+			} 
+			else 
+			{ // Ranged
+				Instantiate(staticRanged,spawnPoints[index].transform.position, Quaternion.identity);
+				Debug.Log("change Eventhandler.cs spawnwaves() for inclusion of ranged");
+			}
+			droneCount++;
+			yield return new WaitForSeconds (spawnDelayTime);
+		}
+		wave++;
+	}
+
+
+}
+//Time.smoothDeltaTime * 
+//startCoRoutine
+//instantiate
+
+/* old code
 	public static void init(){
-		enemyMelee = Resources.Load("prefab/EnemyObject",typeof(GameObject)) as GameObject;
-		enemyRanged = Resources.Load("prefab/EnemyObject",typeof(GameObject)) as GameObject;
-		wave = 0;
+		staticMelee = enemyMelee;
+		staticRanged = enemyRanged;
+		wave = 1;
 		timeBetweenWaves = 30;
 		droneCount = 0;
 		spawnPoints = GameObject.FindGameObjectsWithTag ("spawner");
@@ -32,32 +95,26 @@ public class EventHandler : MonoBehaviour{
 	private static IEnumerator waitSpawn(){
 		yield return new WaitForSeconds (timeBetweenWaves);
 		spawnWaves ();
-		wave++;
-	}
 
-	public static GameObject getMelee(){
-		return enemyMelee;
 	}
 	 
 	public static IEnumerator  spawnWaves(){
+		print("here");
 		for (int i = 0; i < wave * multiplyNum; i++) {
 			int index = Random.Range(0,spawnPoints.Length );
 			if(Random.Range(-10,10) > 0)
 			{ // Melee
-				Instantiate(getMelee(), spawnPoints[index].transform.position, Quaternion.identity);
+
+				Instantiate(staticMelee, spawnPoints[index].transform.position, Quaternion.identity);
 			} 
 			else 
 			{ // Ranged
-				Instantiate(getMelee(),spawnPoints[index].transform.position, Quaternion.identity);
+				Instantiate(staticRanged,spawnPoints[index].transform.position, Quaternion.identity);
 				Debug.Log("change Eventhandler.cs spawnwaves() for inclusion of ranged");
 			}
 			EventHandler.droneCount++;
 			yield return new WaitForSeconds (spawnDelayTime);
 		}
+		wave++;
 	}
-
-
-}
-//Time.smoothDeltaTime * 
-//startCoRoutine
-//instantiate
+	*/
