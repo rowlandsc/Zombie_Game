@@ -267,14 +267,12 @@ private function ApplyInputVelocityChange (velocity : Vector3)
 		// do nothing. Let the rigidbody handle the velocity
 		// todo: this should really be more gradual, rather than just going from full control to 0 control @ toosteep.
 	}
-	else if ( velocity.sqrMagnitude > movement.maxFallSpeed * movement.maxFallSpeed) 
-	{
+	else if ( velocity.sqrMagnitude > movement.maxFallSpeed * movement.maxFallSpeed) {
 		// Player is moving really really fast (maybe from an explosion).
 		// Let this happen, but add some drag
 		desiredVelocity = velocity * ( 1 - .05 ) ;
 	} 
-	else 
-	{
+	else {
 
 		desiredVelocity = GetDesiredHorizontalVelocity();
 	}
@@ -311,8 +309,7 @@ private function ApplyInputVelocityChange (velocity : Vector3)
 	return velocityChangeVector ;
 }
 
-private function ApplyGravityAndJumping (velocity : Vector3) 
-{
+private function ApplyGravityAndJumping (velocity : Vector3) {
 
 	
 	// Init the vel change at zero

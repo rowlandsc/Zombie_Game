@@ -51,8 +51,11 @@
      <Compile Include="Assets\Scripts\Enemy\EnemyNavigation.cs" />
      <Compile Include="Assets\Scripts\Enemy\MoveSpawner.cs" />
      <Compile Include="Assets\Scripts\FPCScripts\MouseLook.cs" />
+     <Compile Include="Assets\Scripts\FPCScripts\Player.cs" />
      <Compile Include="Assets\Scripts\Game\EventHandler.cs" />
+     <Compile Include="Assets\Scripts\Game\GameTimer.cs" />
      <Compile Include="Assets\Scripts\Game\GlobalVariables.cs" />
+     <Compile Include="Assets\Store.cs" />
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Terrain\Ressources\ShadersBuiltin\Camera-DepthTexture.shader" />
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Trees\BillboardTreeSnow.shader" />
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Terrain\Includes\atsWavingGrass vertexAlpha.cginc" />
@@ -68,6 +71,9 @@
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Terrain\TerrainReplacementAtsV3Snow.shader" />
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Trees\TreeCreatorLeavesRendertexSnow.shader" />
      <None Include="Assets\Art\Terrain Assets\Snow\0000 terrain snow\atsV3 UnityTerrainSnow Package\Shaders\Trees\TreeCreatorBarkOptimizedSnow.shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>C:/Users/Mike/Documents/GitHub/Zombie_Game/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>
