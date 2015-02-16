@@ -25,24 +25,35 @@ public class Drone : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (EventHandler.Instance.getDroneCount () <= 10)
+		{
 			moveTowardsPlayer ();
-		else { 
-			if(EventHandler.instance.getFound() == true){
+			print("less than 10");
+			return;
+		}
+
+		if(player.position.x+searchRange > transform.position.x && player.position.x - searchRange < transform.position.x
+		   && player.position.y+searchRange > transform.position.y && player.position.y - searchRange < transform.position.y
+		   && player.position.z+searchRange > transform.position.z && player.position.z - searchRange < transform.position.z){
+			//broadcast
+			EventHandler.Instance.setFound(true);
+			moveTowardsPlayer();
+			print("Move towards " + EventHandler.Instance.getFound());
+			return;
+		} else {
+			if(EventHandler.Instance.getFound() == true){
 				moveTowardsPlayer();
+				EventHandler.Instance.setFound(false);
 				return;
 			}
-			// if the player is in the radious, then he or she is found
-			if(   player.position.x+searchRange > transform.position.x && player.position.x - searchRange < transform.position.x
-			   && player.position.y+searchRange > transform.position.y && player.position.y - searchRange < transform.position.y
-			   && player.position.z+searchRange > transform.position.z && player.position.z - searchRange < transform.position.z){
-				//broadcast
-				EventHandler.instance.setFound(true);
-				moveTowardsPlayer();
-				return;
-			} 
-			EventHandler.instance.setFound(false);
-			moveRandomDirection();
+			EventHandler.Instance.setFound(false);
 		}
+
+		print ("not found");
+		//moveRandomDirection();
+
+		//print("Move away: " + EventHandler.Instance.getFound());
+
+		
 	}
 
 	public void moveTowardsPlayer(){
@@ -50,9 +61,8 @@ public class Drone : MonoBehaviour {
 	}
 
 	public void moveRandomDirection(){
-		if (transform.position == target.transform.position || target == null) {
-			generateNewTarget();		
-		}
+		//if(target.transform.position.x == transform.position.x && target.transform.position.z == transform.position.z)
+			generateNewTarget ();
 		moveTowards (target.transform);
 	}
 

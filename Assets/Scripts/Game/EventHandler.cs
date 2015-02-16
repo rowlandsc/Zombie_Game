@@ -34,7 +34,7 @@ public class EventHandler : MonoBehaviour{
 		multiplyNum = 3;
 		staticMelee = enemyMelee;
 		staticRanged = enemyRanged;
-		wave = 5;
+		wave = 10;
 		timeBetweenWaves = 30;
 		droneCount = 0;
 		spawnPoints = GameObject.FindGameObjectsWithTag ("spawner");
